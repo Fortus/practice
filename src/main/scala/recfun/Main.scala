@@ -52,17 +52,15 @@ object Main {
   def countChange(money: Int, coins: List[Int]): Int = {
 
     def recSum(coinsR: List[Int], curSum: Int = 0): Int = {
-      val c = coinsR.head + curSum
-      if (c == money) {
-        1 + recSum(coinsR.tail, curSum)
-      } else if (c > money) {
-        0 + recSum(coinsR.tail, curSum)
+      if (curSum == money) {
+        1
+      } else if (curSum > money || coinsR.isEmpty) {
+        0
       } else {
-        recSum(coinsR, c)
+        recSum(coinsR, curSum + coinsR.head) + recSum(coinsR.tail, curSum )
       }
     }
 
     recSum(coins)
   }
-
 }
